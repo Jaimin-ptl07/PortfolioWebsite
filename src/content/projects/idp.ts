@@ -239,7 +239,7 @@ export const idp: Project = {
   ],
 
   evidence: [],
-  related: { projects: ["parakh", "tender-ai"] },
+  related: { projects: ["parakh", "tender-ai"], articles: ["pdf-is-not-just-text"] },
   todo: [
     "Confirm the OCR engine. The brief says Azure Document Intelligence, but earlier notes marked it unconfirmed.",
     "Timeline: when did IDP start, and when was it first adopted?",

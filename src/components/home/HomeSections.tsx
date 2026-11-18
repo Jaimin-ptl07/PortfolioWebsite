@@ -1,10 +1,11 @@
 import { Fragment } from "react";
 import Link from "next/link";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, ArrowUpRight, FileText } from "lucide-react";
 import { site } from "@/config/site";
 import { featuredProjects, projectsForFocus } from "@/content/projects";
 import { focusAreas, experience } from "@/content/profile";
 import { notes, readingMinutes } from "@/content/notes";
+import { recentArticles, formatArticleDate } from "@/content/articles";
 import type { EvidenceKind, Project } from "@/content/types";
 import { ProjectGlyph } from "@/components/ui/ProjectGlyph";
 import { EvidenceBadge, EvidenceLegend } from "@/components/ui/Evidence";
@@ -332,10 +333,10 @@ export function WritingPreview() {
     <section aria-labelledby="writing-h" className={`${wrap} pt-28`}>
       <SectionHead
         id="writing-h"
-        title="Engineering notes"
+        title="Writing"
         action={
           <span className="flex flex-wrap items-center gap-4 md:justify-end">
-            <Link href="/notes" className="text-small text-signal-ink link-underline">All notes</Link>
+            <Link href="/notes" className="text-small text-signal-ink link-underline">All writing</Link>
             {site.links.medium && (
               <ExternalLink href={site.links.medium} className="text-small text-graphite">
                 Medium
@@ -344,33 +345,38 @@ export function WritingPreview() {
           </span>
         }
       >
-        Short write-ups of things I measured, written for engineers who want the numbers and the reasoning.
+        Articles on what happens around the model: document processing, retrieval and backend capacity. Plus shorter notes on changes I measured.
       </SectionHead>
       <ul className="mt-12 grid gap-px overflow-hidden border border-rule bg-rule md:grid-cols-3">
-        {list.map((n) => (
-          <li key={n.slug} className="bg-paper">
-            <Link href={`/notes/${n.slug}`} className="group flex h-full flex-col p-6 transition-colors hover:bg-raised">
+        {recentArticles.slice(0, 3).map((a) => (
+          <li key={a.id} className="bg-paper">
+            <a href={a.url} target="_blank" rel="noopener noreferrer" className="group flex h-full flex-col p-6 transition-colors hover:bg-raised">
               <p className="font-mono text-[0.7rem] text-faint">
-                {n.topic.toLowerCase()}, {readingMinutes(n)} min read
+                <time dateTime={a.date}>{formatArticleDate(a.date)}</time>, {a.topic.toLowerCase()}
               </p>
-              <h3 className="mt-3 font-display text-h3 text-ink group-hover:text-signal-ink">{n.title}</h3>
-              <p className="mt-3 text-small text-graphite">{n.summary}</p>
-              <p className="mt-auto pt-6 text-[0.75rem] text-faint">{n.platform}</p>
-            </Link>
+              <h3 className="mt-3 font-display text-h3 text-ink group-hover:text-signal-ink">{a.title}</h3>
+              {a.quote && <p className="mt-4 border-l-2 border-signal pl-4 text-small italic text-graphite">{a.quote}</p>}
+              <p className="mt-auto inline-flex items-center gap-1 pt-6 text-[0.75rem] text-faint">
+                Read on Medium <ArrowUpRight aria-hidden className="size-3.5" />
+                <span className="sr-only">(opens in a new tab)</span>
+              </p>
+            </a>
           </li>
         ))}
       </ul>
-      {site.externalArticles.length > 0 && (
-        <ul className="mt-6 space-y-2">
-          {site.externalArticles.slice(0, 3).map((a) => (
-            <li key={a.url}>
-              <ExternalLink href={a.url} className="text-small text-ink">
-                {a.title} <span className="font-mono text-[0.7rem] text-faint">{a.platform}</span>
-              </ExternalLink>
+      <div className="mt-10 grid gap-4 md:grid-cols-12 md:gap-8">
+        <h3 className="text-small font-medium text-ink md:col-span-3">Engineering notes</h3>
+        <ul className="divide-y divide-rule border-y border-rule md:col-span-9">
+          {list.map((n) => (
+            <li key={n.slug}>
+              <Link href={`/notes/${n.slug}`} className="group flex items-baseline justify-between gap-4 py-3.5">
+                <span className="text-small text-ink group-hover:text-signal-ink">{n.title}</span>
+                <span className="shrink-0 font-mono text-[0.7rem] text-faint">{readingMinutes(n)} min</span>
+              </Link>
             </li>
           ))}
         </ul>
-      )}
+      </div>
     </section>
   );
 }

@@ -256,7 +256,7 @@ export const fdi: Project = {
   ],
 
   evidence: [],
-  related: { notes: ["dense-only-missed-58-fields", "llm-reads-code-calculates"] },
+  related: { notes: ["dense-only-missed-58-fields", "llm-reads-code-calculates"], articles: ["vector-search-graphrag"] },
   todo: [
     "The local repo has a GitHub remote (Jaimin-ptl07/FinancialDocIntelligence). If it is public, add it under evidence. Not linked until confirmed.",
     "The repo README currently describes a 9-measured-stage slice. This page follows your brief's 22-stage DAG. Confirm which version the site should describe.",

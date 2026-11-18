@@ -13,17 +13,6 @@ export type ManualRepo = {
   project?: string;
 };
 
-export type ExternalArticle = {
-  title: string;
-  url: string;
-  platform: "Medium" | "LinkedIn" | "GitHub" | "Other";
-  topic: string;
-  summary: string;
-  /** ISO date, e.g. "2026-10-02". Leave undefined if unknown. */
-  date?: string;
-  readingMinutes?: number;
-};
-
 export const site = {
   name: "Jaimin Patel",
   title: "Applied AI Engineer | AI Systems Engineer",
@@ -50,8 +39,7 @@ export const site = {
     email: "pateljaimin1707@gmail.com",
     linkedin: "https://www.linkedin.com/in/jaimin-patel-aa470721a/",
     github: "https://github.com/Jaimin-ptl07",
-    /** Add your verified Medium profile URL, e.g. "https://medium.com/@handle". */
-    medium: null as string | null,
+    medium: "https://medium.com/@pateljaimin1707" as string | null,
   },
 
   github: {
@@ -63,16 +51,13 @@ export const site = {
     featuredRepos: [] as ManualRepo[],
   },
 
-  /** Published articles elsewhere (Medium, LinkedIn, etc.). Verified URLs only. */
-  externalArticles: [] as ExternalArticle[],
-
   /** LinkedIn posts worth linking from case studies. Verified URLs only. */
   linkedinPosts: [] as { title: string; url: string; project?: string }[],
 } as const;
 
 export const nav = [
   { href: "/work", label: "Work" },
-  { href: "/notes", label: "Notes" },
+  { href: "/notes", label: "Writing" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;

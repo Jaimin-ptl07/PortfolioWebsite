@@ -279,7 +279,7 @@ export const parakh: Project = {
   ],
 
   evidence: [],
-  related: { notes: ["bottleneck-outside-the-model"], projects: ["gemma-4-inference", "intelligent-document-processing"] },
+  related: { notes: ["bottleneck-outside-the-model"], projects: ["gemma-4-inference", "intelligent-document-processing"], articles: ["pdf-is-not-just-text", "vector-search-graphrag"] },
   todo: [
     "Team size and your scope within it.",
     "Timeline (start date, current phase).",

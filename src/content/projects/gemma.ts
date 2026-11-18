@@ -286,7 +286,7 @@ export const gemma: Project = {
   ],
 
   evidence: [],
-  related: { notes: ["max-num-batched-tokens-prefill", "max-num-seqs-tradeoff", "bottleneck-outside-the-model"], projects: ["parakh"] },
+  related: { notes: ["max-num-batched-tokens-prefill", "max-num-seqs-tradeoff", "bottleneck-outside-the-model"], projects: ["parakh"], articles: ["fastapi-limits"] },
   todo: [
     "Confirm the ROCm version. \"6.12.12\" looks like an amdgpu driver version, not a ROCm release. It is held back from the page until confirmed.",
     "Team context: who else worked on serving, gateway and GPU provisioning?",

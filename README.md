@@ -23,7 +23,7 @@ In `npm run dev`, every case study shows a dashed **Content needed** panel listi
 | `/` | Hero with interactive system map, featured work, focus areas, experiments, about preview, notes, contact |
 | `/work` | All case studies (filterable), smaller projects, GitHub repos |
 | `/work/[slug]` | Case study with 11 sections: overview, problem, role, architecture, decisions, challenges, implementation, results, lessons, stack, further reading |
-| `/notes`, `/notes/[slug]` | Engineering notes written from measured project data |
+| `/notes`, `/notes/[slug]` | Writing: Medium articles, engineering notes written from measured project data, and earlier writing |
 | `/about` | Journey, interests, principles, timeline, education |
 | `/contact` | Email, LinkedIn, GitHub, resume |
 | `/sitemap.xml`, `/robots.txt`, `/opengraph-image` | SEO |
@@ -34,7 +34,8 @@ All content is typed TypeScript data, kept separate from the layout code.
 
 | File | Contents |
 |---|---|
-| `src/config/site.ts` | Name, links (LinkedIn, GitHub, Medium, email), availability, resume path, featured repos, external articles |
+| `src/config/site.ts` | Name, links (LinkedIn, GitHub, Medium, email), availability, resume path, featured repos |
+| `src/content/articles.ts` | Medium articles (title, URL, date, summary, quote). Set `earlier: true` for older writing; link one from a case study with `related.articles` |
 | `src/content/projects/*.ts` | One file per case study (schema in `src/content/types.ts`) |
 | `src/content/projects/index.ts` | Ordering, plus the compact "More projects" entries |
 | `src/content/notes/index.ts` | Native notes, written as blocks (paragraph, heading, list, code, callout, metrics) |
@@ -95,17 +96,16 @@ Next.js 16 (App Router, Turbopack), React 19, TypeScript, Tailwind CSS 4, Motion
 
 These are also listed in each case study's dev-only panel:
 
-1. **Medium profile URL** and any published articles → `site.ts` (`links.medium`, `externalArticles`).
-2. **ROCm version** for the Gemma deployment. "6.12.12" looks like a driver version, so the page shows "ROCm" without a version until confirmed.
-3. **Public GitHub repos** to feature (e.g. whether `FinancialDocIntelligence` is public) → `site.github.featuredRepos`.
-4. **IDP:** confirm the OCR engine, timeline, adopter names (if shareable), and the roles of LangChain and LangGraph.
-5. **PARAKH:** team size, timeline, OCR engine, where checkpoints and RBAC live, and how LangGraph is used.
-6. **Gemma:** team context, whether the 221 → 890 tok/s figure was production traffic, and which benchmark tool was used.
-7. **FDI:** which architecture version to describe (22-stage DAG vs the repo's current 9-stage slice), which LLM was used, and how the 196 fields were selected.
-8. **SAC-ISRO:** interpolation weighting, the interpolation method's own results, and any linkable report.
-9. **CWC:** the brief says LangGraph + external NL-to-SQL service, while the resume says LlamaIndex + Azure OpenAI. Confirm which is current.
-10. **Logistics & ICD:** status, role and scope.
-11. **"If I rebuilt it today"** notes per decision (`revisit` field), in your own words.
-12. Reflections in "What I learned" are drafted from the project facts. Review them in your own voice.
-13. **Availability** label (`site.availability`): leave it `null` unless it is current.
-14. **Production domain** → `NEXT_PUBLIC_SITE_URL`.
+1. **ROCm version** for the Gemma deployment. "6.12.12" looks like a driver version, so the page shows "ROCm" without a version until confirmed.
+2. **Public GitHub repos** to feature (e.g. whether `FinancialDocIntelligence` is public) → `site.github.featuredRepos`.
+3. **IDP:** confirm the OCR engine, timeline, adopter names (if shareable), and the roles of LangChain and LangGraph.
+4. **PARAKH:** team size, timeline, OCR engine, where checkpoints and RBAC live, and how LangGraph is used.
+5. **Gemma:** team context, whether the 221 → 890 tok/s figure was production traffic, and which benchmark tool was used.
+6. **FDI:** which architecture version to describe (22-stage DAG vs the repo's current 9-stage slice), which LLM was used, and how the 196 fields were selected.
+7. **SAC-ISRO:** interpolation weighting, the interpolation method's own results, and any linkable report.
+8. **CWC:** the brief says LangGraph + external NL-to-SQL service, while the resume says LlamaIndex + Azure OpenAI. Confirm which is current.
+9. **Logistics & ICD:** status, role and scope.
+10. **"If I rebuilt it today"** notes per decision (`revisit` field), in your own words.
+11. Reflections in "What I learned" are drafted from the project facts. Review them in your own voice.
+12. **Availability** label (`site.availability`): leave it `null` unless it is current.
+13. **Production domain** → `NEXT_PUBLIC_SITE_URL`.

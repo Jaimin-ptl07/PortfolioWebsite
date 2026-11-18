@@ -9,6 +9,7 @@ import { CountUp } from "@/components/viz/CountUp";
 import { metricValue } from "@/lib/format";
 import { getNote, readingMinutes } from "@/content/notes";
 import { getProject, projects } from "@/content/projects";
+import { getArticle, type Article } from "@/content/articles";
 
 /* ---------------------------------------------------------------- */
 
@@ -433,6 +434,7 @@ export function TechStack({ stack }: { stack: Project["stack"] }) {
 export function RelatedWriting({ project }: { project: Project }) {
   const notes = (project.related?.notes ?? []).map(getNote).filter((n): n is NonNullable<typeof n> => Boolean(n));
   const rel = (project.related?.projects ?? []).map(getProject).filter((p): p is Project => Boolean(p));
+  const arts = (project.related?.articles ?? []).map(getArticle).filter((a): a is Article => Boolean(a));
   return (
     <div className="space-y-10">
       {project.evidence.length > 0 ? (
@@ -446,7 +448,25 @@ export function RelatedWriting({ project }: { project: Project }) {
           ))}
         </ul>
       ) : (
-        <p className="text-small text-graphite">No external links are listed for this project. The write-ups below are based on its measured results.</p>
+        <p className="text-small text-graphite">No external project links are listed.</p>
+      )}
+      {arts.length > 0 && (
+        <div>
+          <h3 className="text-small font-medium text-ink">Related articles</h3>
+          <ul className="mt-3 divide-y divide-rule border-y border-rule">
+            {arts.map((a) => (
+              <li key={a.id}>
+                <a href={a.url} target="_blank" rel="noopener noreferrer" className="group flex items-baseline justify-between gap-4 py-4">
+                  <span className="text-ink group-hover:text-signal-ink">
+                    {a.title}
+                    <span className="sr-only"> (opens Medium in a new tab)</span>
+                  </span>
+                  <span className="shrink-0 font-mono text-[0.7rem] text-faint">Medium</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
       {notes.length > 0 && (
         <div>

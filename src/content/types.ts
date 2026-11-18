@@ -212,7 +212,7 @@ export type Project = {
   lessons: { title: string; body: string }[];
   stack: TechGroup[];
   evidence: EvidenceLink[];
-  related?: { notes?: string[]; projects?: string[] };
+  related?: { notes?: string[]; projects?: string[]; /** Article ids from content/articles.ts. */ articles?: string[] };
   /**
    * Missing information. Shown as a dashed "content needed" panel in
    * development only; never rendered in production builds.
