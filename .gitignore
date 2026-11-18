@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+npm-debug.log*
+.DS_Store
+.vercel
+.playwright-mcp/
+
+# Resume working files (site copy lives in public/resume/)
+/Jaimin_Patel_Resume.html
+/Jaimin_Patel_Resume.pdf
+/Resume_Change_Log.md

@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Tokens. Every colour on the site resolves to one of these.          */
+/* ------------------------------------------------------------------ */
+:root {
+  --paper: #f3f4f1;
+  --paper-raised: #fafbf9;
+  --paper-sunk: #e9ebe6;
+  --ink: #1b1e22;
+  --graphite: #5a6068;
+  --faint: #8a9098;
+  --rule: #d8dbd6;
+  --rule-strong: #b9bdb7;
+  --signal: #1e49f0;
+  --signal-ink: #1638c4;
+  --signal-wash: #e3e8fd;
+  --on-signal: #ffffff;
+  --grid: rgba(27, 30, 34, 0.055);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #15171a;
+    --paper-raised: #1c1f23;
+    --paper-sunk: #101214;
+    --ink: #e6e7e3;
+    --graphite: #a3a8ae;
+    --faint: #767c84;
+    --rule: #2c3036;
+    --rule-strong: #41464d;
+    --signal: #6f8cff;
+    --signal-ink: #93a8ff;
+    --signal-wash: #1d2547;
+    --on-signal: #0d1020;
+    --grid: rgba(230, 231, 227, 0.05);
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-raised: var(--paper-raised);
+  --color-sunk: var(--paper-sunk);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-faint: var(--faint);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-signal: var(--signal);
+  --color-signal-ink: var(--signal-ink);
+  --color-signal-wash: var(--signal-wash);
+  --color-on-signal: var(--on-signal);
+
+  --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Type scale: 1.25 ratio from a 17px body. */
+  --text-meta: 0.75rem;
+  --text-meta--line-height: 1.1rem;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.4rem;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.75rem;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.95rem;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.95rem;
+  --text-h2: 2.125rem;
+  --text-h2--line-height: 2.5rem;
+  --text-h1: 3.25rem;
+  --text-h1--line-height: 3.5rem;
+  --text-hero: 4.75rem;
+  --text-hero--line-height: 4.9rem;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+html {
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--paper);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  font-feature-settings: "ss01", "cv11";
+  min-height: 100dvh;
+  overflow-x: clip;
+}
+
+/* Long technical identifiers (max_num_batched_tokens) must wrap on phones. */
+h1,
+h2,
+h3,
+p,
+li,
+dd {
+  overflow-wrap: break-word;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--on-signal);
+}
+
+:where(a, button, [role="button"], summary, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Anchor targets clear the sticky header. */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+.font-display {
+  font-optical-sizing: auto;
+  letter-spacing: -0.015em;
+}
+
+/* Inline technical identifiers such as max_num_seqs. */
+.code-inline {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  padding: 0.08em 0.35em;
+  border-radius: 3px;
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule);
+  white-space: nowrap;
+}
+
+/* Drafting-sheet background used behind the hero and figures. */
+.drafting-grid {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Long-form prose inside case studies and notes. */
+.prose-body > * + * {
+  margin-top: 1.1rem;
+}
+.prose-body p {
+  max-width: 68ch;
+}
+.prose-body a {
+  color: var(--signal-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.3s var(--ease-out-quart);
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* SVG diagram packets: disabled entirely when the user asks for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .motion-packet {
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hero intro: pure CSS so the heading never waits for hydration. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+.rise {
+  display: inline-block;
+  animation: rise 0.7s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.edge-flow {
+  stroke-dasharray: 4 8;
+  animation: dash-flow 1.6s linear infinite;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
